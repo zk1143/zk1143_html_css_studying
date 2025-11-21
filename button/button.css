@@ -1,0 +1,268 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+    color: #333;
+}
+
+/* 主要容器置中 */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1 {
+    color: white;
+    font-size: 3rem;
+    margin: 20px 0;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+p {
+    margin: 10px;
+    font-size: 1.5rem;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* 按鈕格子佈局 - 自動換行 */
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 25px;
+}
+
+/* 所有按鈕的基礎樣式 */
+.btn {
+    padding: 20px 32px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    position: relative;            /* 重要！讓 ::before / ::after 可以定位 */
+}
+
+.btn:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+    transform: translateY(2px);
+}
+
+/* ==================== 1. 紅綠變色漸層按鈕 ==================== */
+.btn-1 {
+    background: linear-gradient(45deg, #ff5252, #e04848);
+    color: white;
+}
+.btn-1:hover {
+    background: linear-gradient(45deg, #1aa815, #199743);
+}
+
+/* ==================== 2. 旋轉霓虹燈邊框 ==================== */
+.btn-2 {
+    background: #1a1a2e;
+    color: #0b86be;
+    overflow: hidden;
+    z-index: 1;
+}
+.btn-2::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #00ff00);
+    z-index: -1;
+    filter: blur(8px);
+    animation: neon 3s linear infinite;
+}
+@keyframes neon {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* ==================== 3. 毛玻璃效果 ==================== */
+.btn-3 {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+/* ==================== 4. 氣墊按鈕 ==================== */
+.btn-4 {
+    background: #f0f0f0;
+    color: #333;
+    box-shadow: 0 4px 0 #ccc, 0 15px 20px rgba(0, 0, 0, 0.3);
+}
+.btn-4:hover {
+    transform: translateY(8px);
+    box-shadow: 0 4px 0 #ccc, 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+.btn-4:active {
+    transform: translateY(18px);
+    box-shadow: 0 0 0 #ccc;
+}
+
+/* ==================== 5. 按壓蓄氣感 ==================== */
+.btn-5 {
+    background: #ff6b6b;
+    color: white;
+    overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.2, 1.8, 0.4, 1);
+}
+.btn-5:active {
+    transform: scale(0.88) rotate(2deg);
+    transition: transform 0.1s cubic-bezier(0.5, 0.2, 0.8, 0.6);
+}
+.btn-5::before {
+    content: '';
+    position: absolute;
+    width: 0; height: 0;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 4.8s, height 4.8s;
+}
+.btn-5:active::before {
+    width: 400px;
+    height: 400px;
+}
+
+/* ==================== 6. 光束反光效果 ==================== */
+.btn-6 {
+    background: #6366f1;
+    color: white;
+    overflow: hidden;
+}
+.btn-6::after {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.2);
+    top: -150%;
+    left: 60%;
+    transform: rotate(150deg);
+    transition: all 0.6s;
+}
+.btn-6:hover::after {
+    top: -50%;
+    left: -130%;
+}
+.btn-6:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.5);
+}
+
+/* ==================== 7. 3D 翻轉卡片 ==================== */
+.btn-7 {
+    background: transparent;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+.btn-7:hover {
+    transform: rotateY(180deg);
+}
+.btn-7 span {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+    border-radius: 12px;
+}
+.btn-7 .front {
+    background: linear-gradient(135deg, #8b5cf6, #d946ef);
+}
+.btn-7 .back {
+    background: linear-gradient(135deg, #ec4899, #f43f5e);
+    transform: rotateY(180deg);
+}
+
+/* ==================== 8. 進度條效果 ==================== */
+.btn-8 {
+    background: #1e293b;
+    color: #22c55e;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+    font-weight: bold;
+}
+.btn-8 span {
+    position: relative;
+    z-index: 2;
+}
+.btn-8::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #04e910;
+    mix-blend-mode: overlay;
+    animation: typing 3s steps(20) infinite;
+}
+@keyframes typing {
+    0%   { width: 0; }
+    50%  { width: 100%; }
+    100% { width: 100%; }
+}
+
+/* ==================== 9. 移動加深(上到下)效果 ==================== */
+.btn-9 {
+    background: #f59e0b;
+    color: white;
+    overflow: hidden;
+}
+.btn-9 span {
+    position: relative;
+    z-index: 2;
+}
+.btn-9::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 0;
+    background: #ea580c;
+    border-radius: 12px 12px 60% 60%;
+    transition: height 0.7s ease;
+    z-index: 1;
+}
+.btn-9:hover::before {
+    height: 180%;
+}
+.btn-9:hover {
+    transform: translateY(4px);
+}
+
+/* ==================== 10. 外框漣漪效果 ==================== */
+.btn-10 {
+    background: #0f172a;
+    color: #60a5fa;
+    border: 2px solid #60a5fa;
+    overflow: hidden;
+}
+.btn-10:active {
+    animation: explode 0.8s ease-out forwards;
+}
+@keyframes explode {
+    0%   { transform: scale(1);   box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.7); }
+    50%  { box-shadow: 0 0 0 20px rgba(96, 165, 250, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(96, 165, 250, 0); }
+}
